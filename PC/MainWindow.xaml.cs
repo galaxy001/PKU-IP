@@ -14,6 +14,7 @@ namespace PC
         public MainWindow()
         {
             InitializeComponent();
+            //增加用户信息列表
             学生信息[0] = new HWR.用户信息 { 学号 = "1301110110", 密码 = "oudanyi6456" };
             学生信息[1] = new HWR.用户信息 { 学号 = "gcuspea", 密码 = "phyfsc508" };
 
