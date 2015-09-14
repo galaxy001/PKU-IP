@@ -28,7 +28,6 @@ namespace PC
         public CookieContainer cContainer = new CookieContainer();
         public HWR()
         {
-        	学生.学号 = "1301110111";
             学生.学号 = "1301110110";
             学生.密码 = "oudanyi6456";
             学生.类型 = fwrd.free;//默认值
