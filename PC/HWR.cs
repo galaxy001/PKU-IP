@@ -10,30 +10,30 @@ namespace PC
     {
         public struct 用户信息
         {
-            public string 学号;
-            public string 密码;
-            public fwrd 类型;
+            public string 学号 { set; get; }
+            public string 密码 { set; get; }
+            private static fwrd 类型 = fwrd.free;
             public string value;//断开指定连接用
             private static string code = "|;kiDrqvfi7d$v0p5Fg72Vwbv2;|";//固定字符串
             public string postData() { return "fwrd=" + 类型 + "&username1=" + 学号 + "&password=" + 密码 + "&username=" + 学号 + code + 密码 + code + (short)类型; }//组合出的POST表单内容
         }
-        public enum fwrd:short
+        public enum fwrd : short
         {
-            fee=11,
-            free=12,
-            pkuwireless=14
+            fee = 11,
+            free = 12,
+            pkuwireless = 14
         }
-        用户信息 学生;
+        public 用户信息 学生;
         public HttpWebRequest Request;
         public CookieContainer cContainer = new CookieContainer();
         public HWR()
         {
-            学生.学号 = "1301110110";
-            学生.密码 = "oudanyi6456";
-            学生.类型 = fwrd.free;
-            获得cookie();
+            //学生.学号 = "1301110110";
+            //学生.密码 = "oudanyi6456";
+            //学生.类型 = fwrd.free;
+            
         }
-        
+
         public void 建立连接(string URL, string PostData = "")
         {
             Request = (HttpWebRequest)WebRequest.Create(URL);
@@ -64,20 +64,20 @@ namespace PC
 
         public string[] 连接(string 连接类型)
         {
-            //获得cookie();
+            获得cookie();
             建立连接("http://its.pku.edu.cn/netportal/" + 连接类型);
             HttpWebResponse response = (HttpWebResponse)Request.GetResponse();
             //读取网页(response);
             string 文档 = 分析网页(response);
             response.Close();
             string[] Content = 返回信息(文档);
-            
-            if (Content[0].Contains("NO") && 连接类型== "ipgwopen")
+
+            if (Content[0].Contains("NO") && 连接类型 == "ipgwopen")
             {
                 return disConnectSpe(文档);
             }
             return Content;
-            
+
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace PC
             HttpWebResponse response = (HttpWebResponse)Request.GetResponse();
             string IP地址 = 分析网页(response);
             response.Close();
-            
+
             //断开指定连接
             string[] IP = new string[4];
             Regex[] reg = new Regex[2];
@@ -116,8 +116,8 @@ namespace PC
                 IP[i] = 时间.ToString("M-d hh:mm:ss");
             }
             return IP;
-            
-            
+
+
         }
 
         public string[] 断开指定连接(string IP)

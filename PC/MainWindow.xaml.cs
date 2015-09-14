@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Net;
-using System.IO;
 
 namespace PC
 {
@@ -26,8 +14,18 @@ namespace PC
         public MainWindow()
         {
             InitializeComponent();
+            学生信息[0] = new HWR.用户信息 { 学号 = "1301110110", 密码 = "oudanyi6456" };
+            学生信息[1] = new HWR.用户信息 { 学号 = "gcuspea", 密码 = "phyfsc508" };
+
+            comboBox.ItemsSource = 学生信息;
+            comboBox.DisplayMemberPath = "学号";
+            comboBox.SelectedValue = 学生信息[0];//默认
+
         }
         public HWR web = new HWR();
+
+        public HWR.用户信息[] 学生信息 = new HWR.用户信息[2];
+        
         static string[] 连接类型 = new string[] { "ipgwopen", "ipgwopenall", "ipgwclose", "ipgwcloseall" };//连接, 收费链接, 断开连接, 断开所有连接
         public Button[] IP按钮 = new Button[2];
         /// <summary>
@@ -41,6 +39,8 @@ namespace PC
             textBlock.Inlines.Clear();
             grid.Children.Remove(IP按钮[0]);
             grid.Children.Remove(IP按钮[1]);
+            //确定学号和密码
+            web.学生 = (HWR.用户信息)comboBox.SelectedItem;
             //确定免费/收费地址
             short Tag;
             Tag = Convert.ToInt16(((Button)sender).Tag);
