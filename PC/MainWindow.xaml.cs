@@ -28,30 +28,45 @@ namespace PC
             InitializeComponent();
         }
         public HWR web = new HWR();
-        static string[] 连接类型 = new string[] { "ipgwopen", "ipgwclose", "ipgwcloseall" };//连接, 断开连接, 断开所有连接
-        public Button[] buttons = new Button[2];
+        static string[] 连接类型 = new string[] { "ipgwopen", "ipgwopenall", "ipgwclose", "ipgwcloseall" };//连接, 收费链接, 断开连接, 断开所有连接
+        public Button[] IP按钮 = new Button[2];
+        /// <summary>
+        /// 利用Button内的Tag确定(断开)连接的类型
+        /// </summary>
+        /// <param name="sender">点击的Button种类</param>
+        /// <param name="e"></param>
         private void 连接(object sender, RoutedEventArgs e)
         {
-            
+            //清除文本信息
             textBlock.Inlines.Clear();
-            
-            string[] Content = web.连接(连接类型[Convert.ToInt16(((Button)sender).Tag)]);
+            grid.Children.Remove(IP按钮[0]);
+            grid.Children.Remove(IP按钮[1]);
+            //确定免费/收费地址
+            short Tag;
+            Tag = Convert.ToInt16(((Button)sender).Tag);
+            if ((bool)radioButton1.IsChecked && Tag == 0) { Tag++; }//收费
+
+            string[] Content = web.连接(连接类型[Tag]);
             判断(Content);
         }
 
 
-
+        /// <summary>
+        /// 通过点击Button断开指定的IP地址网关
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void 指定连接(object sender, RoutedEventArgs e)
         {
             textBlock.Inlines.Clear();
-            grid.Children.Remove(buttons[0]);
-            grid.Children.Remove(buttons[1]);
+            grid.Children.Remove(IP按钮[0]);
+            grid.Children.Remove(IP按钮[1]);
             string[] Content = web.断开指定连接(((Button)sender).Tag.ToString());
             判断(Content);
         }
         private void 判断(string[] Content)
         {
-            if (Content[0].Contains("YES"))
+            if (Content[0].Contains("YES"))//(断开)连接成功, 显示信息
             {
                 for (int i = 1; i < Content.Count(); i++)
                 {
@@ -59,22 +74,22 @@ namespace PC
                     textBlock.Inlines.Add(new LineBreak());
                 }
             }
-            else
+            else//连接失败
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++)//新建选IP地址断开的按钮
                 {
 
-                    buttons[i] = new Button();
+                    IP按钮[i] = new Button();
 
-                    buttons[i].Content = "断开IP" + (i + 1);
-                    buttons[i].HorizontalAlignment = HorizontalAlignment.Center;
-                    buttons[i].Width = 82;
-                    buttons[i].Height = 27;
-                    buttons[i].VerticalAlignment = VerticalAlignment.Bottom;
-                    buttons[i].Tag = Content[i];
-                    buttons[i].Margin = new Thickness((2 * i - 1) * 100, 0, 0, 94);
-                    buttons[i].Click += 指定连接;
-                    grid.Children.Add(buttons[i]);
+                    IP按钮[i].Content = "断开IP" + (i + 1);
+                    IP按钮[i].HorizontalAlignment = HorizontalAlignment.Center;
+                    IP按钮[i].Width = 82;
+                    IP按钮[i].Height = 27;
+                    IP按钮[i].VerticalAlignment = VerticalAlignment.Bottom;
+                    IP按钮[i].Tag = Content[i];
+                    IP按钮[i].Margin = new Thickness((2 * i - 1) * 100, 0, 0, 94);
+                    IP按钮[i].Click += 指定连接;
+                    grid.Children.Add(IP按钮[i]);
                 }
 
                 textBlock.Inlines.Add(new Run("您当前已经打开2个网络连接, 请断开指定连接"));
