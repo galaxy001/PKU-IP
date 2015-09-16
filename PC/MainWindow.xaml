@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PC"
         mc:Ignorable="d"
-        Title="北大网关" Height="350" Width="330.941" ResizeMode="NoResize">
+        Title="北大网关" Height="350" Width="330.941">
 
     <Grid x:Name="grid">
         <Button x:Name="button" Content="连接" Margin="0,0,200,10" Click="连接" TabIndex="4" Tag="0" Height="27" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="82"/>
-        <Button x:Name="button_Copy" Content="断开连接" HorizontalAlignment="Center" Margin="0,0,0,10" Width="82" Click="连接" TabIndex="5" Tag="2" Height="27" VerticalAlignment="Bottom"/>
-        <Button x:Name="button_Copy1" Content="断开所有连接" HorizontalAlignment="Center" Margin="200,0,0,10" Width="82" Click="连接" TabIndex="6" Tag="3" Height="27" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_Copy" Content="断开连接" HorizontalAlignment="Center" Margin="0,0,0,10" Width="82" Click="连接" TabIndex="5" Tag="1" Height="27" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_Copy1" Content="断开所有连接" HorizontalAlignment="Center" Margin="200,0,0,10" Width="82" Click="连接" TabIndex="6" Tag="2" Height="27" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="radioButton" Content="免费地址" HorizontalAlignment="Center" Margin="-120,58,0,0" VerticalAlignment="Top" GroupName="free" TabIndex="2" IsChecked="True" Tag="free"/>
         <RadioButton x:Name="radioButton1" Content="收费地址" HorizontalAlignment="Center" Margin="120,58,0,0" VerticalAlignment="Top" GroupName="free" TabIndex="3" Tag="fee"/>
         <Label x:Name="label" Content="用户名" HorizontalAlignment="Left" Margin="44,17,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.205,0.541"/>

@@ -72,10 +72,7 @@ namespace PC
             response.Close();
             string[] Content = 返回信息(文档);
 
-            if (Content[0].Contains("NO") && 连接类型 == "ipgwopen")
-            {
-                return disConnectSpe(文档);
-            }
+            if (Content[0].Contains("NO") && 连接类型.StartsWith("ipgwopen")) return disConnectSpe(文档);
             return Content;
 
         }
@@ -106,8 +103,8 @@ namespace PC
             for (i = 0; i < 2; i++)
             {
                 MC = reg[i].Matches(IP地址);
-                if (MC.Count < 2) { break; }
-                for (j = 0; j < 2; j++) { IP[i * 2 + j] = MC[j].Value; }
+                if (MC.Count < 2) break;
+                for (j = 0; j < 2; j++) IP[i * 2 + j] = MC[j].Value;
             }
             DateTime 时间;
             for (i = 2; i < 4; i++)
